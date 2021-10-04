@@ -1,13 +1,13 @@
 provider "aws" {
   region = var.region
 
-  dynamic "assume_role" {
-    for_each = module.iam_roles.org_role_arn != null ? [true] : []
-    content {
-      role_arn = coalesce(var.import_role_arn, module.iam_roles.org_role_arn)
-    }
+  assume_role {
+    # `terraform import` will not use data from a data source,
+    # so on import we have to explicitly specify the role
+    role_arn = var.import_role_arn
   }
 }
+
 
 variable "import_role_arn" {
   type        = string
