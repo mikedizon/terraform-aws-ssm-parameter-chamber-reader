@@ -1,3 +1,8 @@
+variable "region" {
+  type        = string
+  description = "AWS Region"
+}
+
 variable "enabled" {
   type        = bool
   description = "Set to false to prevent the module from creating any resources"
